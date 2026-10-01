@@ -283,7 +283,7 @@
       });
     }, { threshold: 0.05 });
     items.forEach(function (el) { io.observe(el); });
-    /* 안전장치: 2초 뒤에도 안 보이는 영역이 있으면 강제로 표시 */
+    /* 안전장치: 2초 뒤에도 안 보이는 영역은 강제로 표시 */
     setTimeout(function {
       items.forEach(function (el) { el.classList.add('in'); });
     }, 2000);
@@ -319,6 +319,5 @@
     if (e.key === 'Escape' && modal.classList.contains('open')) { closeModal; }
   });
 });
-</script>
-</body>
+</script></body>
 </html>
