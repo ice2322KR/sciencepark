@@ -6,10 +6,18 @@
 <meta name="theme-color" content="#0b1020">
 <title>사이언스파크 | 스스로 발견하는 과학 동아리</title>
 <meta name="description" content="답을 외우는 대신 스스로 발견하는 고등학교 과학 동아리 사이언스파크. 2026–2028 동아리 지원서 접수 중.">
+<script>document.documentElement.classList.add('js')</script>
 <style>
   :root{
-    --bg:#0b1020; --bg2:#121a33; --text:#eef2ff; --muted:#a9b4d6;
-    --accent:#5eead4; --accent2:#818cf8; --line:rgba(255,255,255,.12);
+    /* 이미지 주소 5개 (webp) */
+    --img-hero:url('/images/hero.webp');
+    --img-about:url('/images/about.webp');
+    --img-activities:url('/images/activities.webp');
+    --img-curriculum:url('/images/curriculum.webp');
+    --img-apply:url('/images/apply.webp');
+
+    --bg:#0b1020; --bg2:#121a33; --text:#eef2ff; --muted:#b4bedd;
+    --accent:#5eead4; --accent2:#818cf8; --line:rgba(255,255,255,.14);
     --pad:clamp(20px,6vw,48px);
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -18,14 +26,35 @@
     font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
     background:var(--bg);color:var(--text);line-height:1.7;
     word-break:keep-all;overflow-wrap:break-word;
-    padding-bottom:env(safe-area-inset-bottom);
+    padding-bottom:calc(80px + env(safe-area-inset-bottom));
   }
   a{color:inherit;text-decoration:none}
-  section{padding:72px var(--pad);max-width:720px;margin:0 auto;scroll-margin-top:64px}
+  section{padding:80px 0;scroll-margin-top:64px}
+  .inner{max-width:720px;margin:0 auto;padding:0 var(--pad)}
   .eyebrow{font-size:.75rem;letter-spacing:.14em;color:var(--accent);font-weight:700;margin-bottom:14px}
   h1{font-size:clamp(2rem,9vw,3.2rem);line-height:1.25;font-weight:800;letter-spacing:-.02em}
   h2{font-size:clamp(1.5rem,6.5vw,2.2rem);line-height:1.35;font-weight:800;margin-bottom:16px;letter-spacing:-.02em}
   p{color:var(--muted);font-size:1rem}
+
+  /* 배경 이미지 섹션 */
+  .bgsec{position:relative;isolation:isolate;background:var(--bg2)}
+  .bgsec::before{
+    content:"";position:absolute;inset:0;z-index:-2;
+    background-color:var(--bg2);
+    background-image:var(--img),
+      radial-gradient(circle at 20% 20%,rgba(94,234,212,.22),transparent 45%),
+      radial-gradient(circle at 85% 75%,rgba(129,140,248,.28),transparent 50%);
+    background-size:cover,auto,auto;
+    background-position:center,center,center;
+    background-repeat:no-repeat;
+  }
+  .bgsec::after{content:"";position:absolute;inset:0;z-index:-1;
+    background:linear-gradient(180deg,rgba(11,16,32,.75),rgba(11,16,32,.55) 50%,rgba(11,16,32,.85))}
+  .s-hero{--img:var(--img-hero)}
+  .s-about{--img:var(--img-about)}
+  .s-activities{--img:var(--img-activities)}
+  .s-curriculum{--img:var(--img-curriculum)}
+  .s-apply{--img:var(--img-apply)}
 
   /* 헤더 */
   header{
@@ -34,7 +63,7 @@
     background:rgba(11,16,32,.85);backdrop-filter:blur(12px);
     -webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line);
   }
-  .bar{display:flex;align-items:center;justify-content:space-between;max-width:720px;margin:0 auto}
+  .bar{display:flex;align-items:center;justify-content:space-between;max-width:960px;margin:0 auto}
   .logo{font-weight:800;font-size:1.05rem}
   nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
   nav::-webkit-scrollbar{display:none}
@@ -48,20 +77,22 @@
     font-weight:700;font-size:1rem;width:100%;
     background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06101f;
   }
-  .btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+  .btn.ghost{background:rgba(255,255,255,.04);color:var(--text);border:1px solid var(--line)}
   .btn:active{transform:scale(.98)}
 
   /* 히어로 */
-  .hero{min-height:calc(100svh - 64px);display:flex;flex-direction:column;justify-content:center;gap:24px}
+  .hero{min-height:calc(100svh - 64px);display:flex;flex-direction:column;justify-content:center;padding:72px 0}
+  .hero .inner{display:grid;gap:24px;width:100%}
   .hero h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
   .chips{display:flex;flex-wrap:wrap;gap:8px}
-  .chip{font-size:.8rem;padding:6px 14px;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
+  .chip{font-size:.8rem;padding:6px 14px;border:1px solid var(--line);border-radius:999px;color:var(--text);background:rgba(11,16,32,.5)}
   .words{display:flex;gap:24px;font-size:.8rem;letter-spacing:.14em;color:var(--accent2);font-weight:700}
   .words small{display:block;color:var(--text);font-size:1.1rem;letter-spacing:0;margin-top:2px}
 
   /* 카드 */
   .cards{display:grid;gap:12px;margin-top:28px}
-  .card{background:var(--bg2);border:1px solid var(--line);border-radius:18px;padding:22px}
+  .card{background:rgba(18,26,51,.82);border:1px solid var(--line);border-radius:18px;padding:22px;
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
   .card b{display:block;color:var(--accent);font-size:.8rem;letter-spacing:.1em;margin-bottom:6px}
   .card h3{font-size:1.1rem;margin-bottom:4px}
   .loop{margin-top:16px;font-size:.9rem;text-align:center}
@@ -73,29 +104,36 @@
   .timeline b{font-size:.8rem;letter-spacing:.1em;color:var(--accent)}
   .timeline h3{font-size:1.1rem;margin:2px 0}
 
+  /* 약속 카드 */
   .rule{background:var(--bg2);border-radius:22px;border:1px solid var(--line);padding:32px 24px;display:grid;gap:16px}
   .show{font-size:.8rem;letter-spacing:.12em;color:var(--accent);font-weight:700}
 
   footer{text-align:center;padding:40px var(--pad) 48px;color:var(--muted);font-size:.8rem;border-top:1px solid var(--line)}
 
-  /* 하단 고정 지원 버튼 (모바일) */
+  /* 하단 고정 지원 버튼 */
   .sticky{
     position:fixed;left:0;right:0;bottom:0;z-index:9;
     padding:10px var(--pad) calc(10px + env(safe-area-inset-bottom));
     background:rgba(11,16,32,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
     border-top:1px solid var(--line);
   }
-  body{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
+
+  /* 스크롤 등장 효과 */
+  .js .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
+  .js .reveal.in{opacity:1;transform:none}
 
   @media(min-width:768px){
+    .inner{max-width:960px}
     .cards{grid-template-columns:repeat(3,1fr)}
     .btn{width:auto;display:inline-flex}
     .sticky{display:none}
     body{padding-bottom:0}
-    section{max-width:960px}
-    .bar{max-width:960px}
   }
-  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn:active{transform:none}}
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .btn:active{transform:none}
+    .js .reveal{opacity:1;transform:none;transition:none}
+  }
 </style>
 </head>
 <body>
@@ -113,62 +151,76 @@
 </header>
 
 <main id="top">
-  <section class="hero">
-    <div class="eyebrow">SCIENCE CLUB 2026–2028</div>
-    <h1>답을 외우는 대신,<br><span>스스로 발견합니다.</span></h1>
-    <p>과학의 원리를 이해하고, 직접 적용하고,<br>우리만의 깨달음으로 남기는 시간.</p>
-    <div class="chips">
-      <span class="chip">과학 선생님 3명</span>
-      <span class="chip">3년, 매년 새로운 커리큘럼</span>
+
+  <section class="hero bgsec s-hero">
+    <div class="inner reveal">
+      <div class="eyebrow">SCIENCE CLUB 2026–2028</div>
+      <h1>답을 외우는 대신,<br><span>스스로 발견합니다.</span></h1>
+      <p>과학의 원리를 이해하고, 직접 적용하고,<br>우리만의 깨달음으로 남기는 시간.</p>
+      <div class="chips">
+        <span class="chip">과학 선생님 3명</span>
+        <span class="chip">3년, 매년 새로운 커리큘럼</span>
+      </div>
+      <div class="words"><div>OBSERVE<small>관찰하고</small></div><div>DISCOVER<small>발견하다</small></div></div>
+      <a class="btn" href="#apply">사이언스파크 지원하기</a>
     </div>
-    <div class="words"><div>OBSERVE<small>관찰하고</small></div><div>DISCOVER<small>발견하다</small></div></div>
-    <a class="btn" href="https://docs.google.com/forms/u/2/d/1jXq5kA7BFBjEuNJU6pXcjZaC6DaJk6si8eE-FHlyc78/edit?usp=forms_home&ouid=111831540172433410620&ths=true" target="_blank" rel="noopener">사이언스파크 지원하기</a>
   </section>
 
-  <section id="about">
-    <div class="eyebrow">WHAT WE BELIEVE</div>
-    <h2>과학은 정답이 아니라<br>과정의 언어입니다.</h2>
-    <p>사이언스파크는 과학을 좋아하는 학생들이 모여 질문하고, 실패하고, 다시 시도하는 동아리입니다. 완성된 답보다 그 답에 도달하는 과정을 소중히 여깁니다.</p>
-  </section>
-
-  <section id="activities">
-    <div class="eyebrow">WHAT WE DO</div>
-    <h2>매년마다 새로운 커리큘럼으로 과학탐구를 진행해요.</h2>
-    <p>세 가지 방식이 꼬리에 꼬리를 물며 3년의 탐구 여정을 완성합니다.</p>
-    <div class="cards">
-      <div class="card"><b>01</b><h3>과학주제토론</h3><p>질문을 나누고 생각을 확장해요.</p></div>
-      <div class="card"><b>02</b><h3>과학교과서 만들기</h3><p>배운 원리를 우리의 언어로 정리해요.</p></div>
-      <div class="card"><b>03</b><h3>실험으로 부스 운영하기</h3><p>직접 실험하고 사람들과 나눠요.</p></div>
+  <section id="about" class="bgsec s-about">
+    <div class="inner reveal">
+      <div class="eyebrow">WHAT WE BELIEVE</div>
+      <h2>과학은 정답이 아니라<br>과정의 언어입니다.</h2>
+      <p>사이언스파크는 과학을 좋아하는 학생들이 모여 질문하고, 실패하고, 다시 시도하는 동아리입니다. 완성된 답보다 그 답에 도달하는 과정을 소중히 여깁니다.</p>
     </div>
-    <p class="loop">01 → 02 → 03 그리고 다시 01.<br>세 가지 방식은 3년 동안 반복되며 매년 새롭게 깊어집니다.</p>
   </section>
 
-  <section id="curriculum">
-    <div class="eyebrow">A THREE-YEAR JOURNEY</div>
-    <h2>한 해가 끝나면,<br>새로운 우리가 시작됩니다.</h2>
-    <p>3년 동안 함께할 수 있지만, 매년 다른 커리큘럼으로 새로운 질문을 만납니다. 올해의 호기심이 내일의 전문성이 되도록.</p>
-    <div class="timeline">
-      <div><b>YEAR 01</b><h3>탐색의 해</h3><p>기초를 다지고 나만의 질문 찾기</p></div>
-      <div><b>YEAR 02</b><h3>확장의 해</h3><p>더 깊이, 더 넓게 연결하기</p></div>
-      <div><b>YEAR 03</b><h3>전달의 해</h3><p>우리의 발견을 세상과 나누기</p></div>
+  <section id="activities" class="bgsec s-activities">
+    <div class="inner reveal">
+      <div class="eyebrow">WHAT WE DO</div>
+      <h2>매년마다 새로운 커리큘럼으로 과학탐구를 진행해요.</h2>
+      <p>세 가지 방식이 꼬리에 꼬리를 물며 3년의 탐구 여정을 완성합니다.</p>
+      <div class="cards">
+        <div class="card"><b>01</b><h3>과학주제토론</h3><p>질문을 나누고 생각을 확장해요.</p></div>
+        <div class="card"><b>02</b><h3>과학교과서 만들기</h3><p>배운 원리를 우리의 언어로 정리해요.</p></div>
+        <div class="card"><b>03</b><h3>실험으로 부스 운영하기</h3><p>직접 실험하고 사람들과 나눠요.</p></div>
+      </div>
+      <p class="loop">01 → 02 → 03 그리고 다시 01.<br>세 가지 방식은 3년 동안 반복되며 매년 새롭게 깊어집니다.</p>
+    </div>
+  </section>
+
+  <section id="curriculum" class="bgsec s-curriculum">
+    <div class="inner reveal">
+      <div class="eyebrow">A THREE-YEAR JOURNEY</div>
+      <h2>한 해가 끝나면,<br>새로운 우리가 시작됩니다.</h2>
+      <p>3년 동안 함께할 수 있지만, 매년 다른 커리큘럼으로 새로운 질문을 만납니다. 올해의 호기심이 내일의 전문성이 되도록.</p>
+      <div class="timeline">
+        <div><b>YEAR 01</b><h3>탐색의 해</h3><p>기초를 다지고 나만의 질문 찾기</p></div>
+        <div><b>YEAR 02</b><h3>확장의 해</h3><p>더 깊이, 더 넓게 연결하기</p></div>
+        <div><b>YEAR 03</b><h3>전달의 해</h3><p>우리의 발견을 세상과 나누기</p></div>
+      </div>
     </div>
   </section>
 
   <section>
-    <div class="rule">
-      <div class="eyebrow">ONE IMPORTANT THING</div>
-      <h2>호기심은 자유롭게,<br>태도는 진지하게.</h2>
-      <p>사이언스파크는 함께하는 약속을 중요하게 생각합니다. 3년간 활동을 함께할 수 있지만, 불성실한 태도는 바로 OUT의 사유가 될 수 있어요.</p>
-      <a class="btn ghost" href="#">우리의 약속 자세히 보기</a>
-      <div class="show">SHOW UP · 성실함이 가장 멋진 실험 도구</div>
+    <div class="inner reveal">
+      <div class="rule">
+        <div class="eyebrow">ONE IMPORTANT THING</div>
+        <h2>호기심은 자유롭게,<br>태도는 진지하게.</h2>
+        <p>사이언스파크는 함께하는 약속을 중요하게 생각합니다. 3년간 활동을 함께할 수 있지만, 불성실한 태도는 바로 OUT의 사유가 될 수 있어요.</p>
+        <a class="btn ghost" href="#">우리의 약속 자세히 보기</a>
+        <div class="show">SHOW UP · 성실함이 가장 멋진 실험 도구</div>
+      </div>
     </div>
   </section>
 
-  <section id="apply">
-    <div class="eyebrow">READY TO BEGIN?</div>
-    <h2>다음 발견의 주인공은<br>당신일지도 몰라요.</h2>
-    <a class="btn" href="https://docs.google.com/forms/u/2/d/1jXq5kA7BFBjEuNJU6pXcjZaC6DaJk6si8eE-FHlyc78/edit?usp=forms_home&ouid=111831540172433410620&ths=true" target="_blank" rel="noopener">지원서 작성하기</a>
+  <section id="apply" class="bgsec s-apply">
+    <div class="inner reveal">
+      <div class="eyebrow">READY TO BEGIN?</div>
+      <h2>다음 발견의 주인공은<br>당신일지도 몰라요.</h2>
+      <a class="btn" href="여기에_구글폼_viewform_링크" target="_blank" rel="noopener">지원서 작성하기</a>
+    </div>
   </section>
+
 </main>
 
 <footer>
@@ -179,5 +231,11 @@
   <a class="btn" href="#apply">지원하기</a>
 </div>
 
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}
+}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
 </body>
 </html>
