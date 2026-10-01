@@ -28,7 +28,9 @@
     word-break:keep-all;overflow-wrap:break-word;
     padding-bottom:calc(80px + env(safe-area-inset-bottom));
   }
+  body.modal-open{overflow:hidden}
   a{color:inherit;text-decoration:none}
+  button{font:inherit;cursor:pointer;border:0}
   section{padding:80px 0;scroll-margin-top:64px}
   .inner{max-width:720px;margin:0 auto;padding:0 var(--pad)}
   .eyebrow{font-size:.75rem;letter-spacing:.14em;color:var(--accent);font-weight:700;margin-bottom:14px}
@@ -108,6 +110,35 @@
   .rule{background:var(--bg2);border-radius:22px;border:1px solid var(--line);padding:32px 24px;display:grid;gap:16px}
   .show{font-size:.8rem;letter-spacing:.12em;color:var(--accent);font-weight:700}
 
+  /* 약속 팝업 */
+  .modal{
+    position:fixed;inset:0;z-index:100;display:none;
+    align-items:center;justify-content:center;
+    padding:20px;background:rgba(5,8,18,.78);
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  }
+  .modal.open{display:flex;animation:fade .25s ease}
+  .modal-box{
+    position:relative;width:100%;max-width:520px;max-height:calc(100svh - 40px);
+    overflow-y:auto;-webkit-overflow-scrolling:touch;
+    background:var(--bg2);border:1px solid var(--line);border-radius:24px;
+    padding:36px 24px 28px;box-shadow:0 20px 60px rgba(0,0,0,.5);
+    animation:pop .3s ease;
+  }
+  .modal-close{
+    position:absolute;top:10px;right:10px;width:44px;height:44px;border-radius:50%;
+    background:rgba(255,255,255,.08);color:var(--text);font-size:1.4rem;line-height:1;
+  }
+  .modal-box h2{margin-bottom:22px}
+  .promise{list-style:none;display:grid;gap:12px;margin-bottom:22px}
+  .promise li{display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.04);
+    border:1px solid var(--line);border-radius:16px;padding:16px}
+  .promise b{flex:none;color:var(--accent);font-size:1.1rem;font-weight:800;letter-spacing:.05em}
+  .promise span{color:var(--text);font-size:1rem}
+  .modal-note{color:var(--accent);font-weight:700;margin-bottom:22px}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  @keyframes pop{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+
   footer{text-align:center;padding:40px var(--pad) 48px;color:var(--muted);font-size:.8rem;border-top:1px solid var(--line)}
 
   /* 하단 고정 지원 버튼 */
@@ -126,6 +157,7 @@
     .inner{max-width:960px}
     .cards{grid-template-columns:repeat(3,1fr)}
     .btn{width:auto;display:inline-flex}
+    .modal-box .btn{width:100%}
     .sticky{display:none}
     body{padding-bottom:0}
   }
@@ -133,6 +165,7 @@
     html{scroll-behavior:auto}
     .btn:active{transform:none}
     .js .reveal{opacity:1;transform:none;transition:none}
+    .modal.open,.modal-box{animation:none}
   }
 </style>
 </head>
@@ -207,7 +240,7 @@
         <div class="eyebrow">ONE IMPORTANT THING</div>
         <h2>호기심은 자유롭게,<br>태도는 진지하게.</h2>
         <p>사이언스파크는 함께하는 약속을 중요하게 생각합니다. 3년간 활동을 함께할 수 있지만, 불성실한 태도는 바로 OUT의 사유가 될 수 있어요.</p>
-        <a class="btn ghost" href="#">우리의 약속 자세히 보기</a>
+        <button type="button" class="btn ghost" id="openPromise" aria-haspopup="dialog">우리의 약속 자세히 보기</button>
         <div class="show">SHOW UP · 성실함이 가장 멋진 실험 도구</div>
       </div>
     </div>
@@ -217,7 +250,7 @@
     <div class="inner reveal">
       <div class="eyebrow">READY TO BEGIN?</div>
       <h2>다음 발견의 주인공은<br>당신일지도 몰라요.</h2>
-      <a class="btn" href="여기에_구글폼_viewform_링크" target="_blank" rel="noopener">지원서 작성하기</a>
+      <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfYKodvPSCN5ad8V1sX93Fn1zWJP-1pb56neWpHP_HdmQe-Cw/viewform?usp=sharing&amp;ouid=111831540172433410620" target="_blank" rel="noopener">지원서 작성하기</a>
     </div>
   </section>
 
@@ -231,11 +264,56 @@
   <a class="btn" href="#apply">지원하기</a>
 </div>
 
+<!-- 우리의 약속 팝업 -->
+<div class="modal" id="promiseModal" role="dialog" aria-modal="true" aria-labelledby="promiseTitle">
+  <div class="modal-box">
+    <button type="button" class="modal-close" id="closePromise" aria-label="닫기">&times;</button>
+    <div class="eyebrow">OUR PROMISE</div>
+    <h2 id="promiseTitle">함께 지키는 세 가지</h2>
+    <ul class="promise">
+      <li><b>01</b><span>약속한 시간과 역할을 지켜요.</span></li>
+      <li><b>02</b><span>모르는 것을 부끄러워하지 않고 질문해요.</span></li>
+      <li><b>03</b><span>나의 호기심만큼 동료의 생각도 존중해요.</span></li>
+    </ul>
+    <p class="modal-note">성실한 태도로 3년을 함께할 준비가 된 사람을 기다립니다.</p>
+    <a class="btn" href="#apply" id="promiseApply">지원하러 가기</a>
+  </div>
+</div>
+
 <script>
-const io=new IntersectionObserver(es=>es.forEach(e=>{
-  if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}
-}),{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const io=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+  });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+/* 약속 팝업 */
+const modal=document.getElementById('promiseModal');
+const openBtn=document.getElementById('openPromise');
+const closeBtn=document.getElementById('closePromise');
+
+function openModal{
+  modal.classList.add('open');
+  document.body.classList.add('modal-open');
+  closeBtn.focus;
+}
+function closeModal{
+  modal.classList.remove('open');
+  document.body.classList.remove('modal-open');
+  openBtn.focus;
+}
+
+openBtn.addEventListener('click',openModal);
+closeBtn.addEventListener('click',closeModal);
+document.getElementById('promiseApply').addEventListener('click',function{
+  modal.classList.remove('open');
+  document.body.classList.remove('modal-open');
+});
+modal.addEventListener('click',function(e){if(e.target===modal)closeModal;});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'&&modal.classList.contains('open'))closeModal;
+});
 </script>
 </body>
 </html>
